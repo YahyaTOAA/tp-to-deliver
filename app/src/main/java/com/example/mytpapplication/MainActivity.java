@@ -3,6 +3,8 @@ package com.example.mytpapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,19 +13,46 @@ import android.widget.Toast;
 import com.example.mytpapplication.R;
 
 public class MainActivity extends AppCompatActivity {
-    EditText ed1,ed2;
+    private static final String TAG = "MainActivity";
+    private static final String KEY_DATA = "data";
+    private String savedData;
+    EditText ed1;
+    EditText ed2;
     TextView tv;
     Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null) {
+            savedData = savedInstanceState.getString(KEY_DATA);
+            Log.d(TAG, "Data restored: " + savedData);
+        }
         Toast.makeText(this, "OnCreate", Toast.LENGTH_SHORT).show();
         ed1 = findViewById(R.id.edittext1);
         ed2 = findViewById(R.id.edittext2);
         btn = findViewById(R.id.button);
         tv = findViewById(R.id.textview1);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv.setText("");
+            }
+        });
     }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_DATA, savedData);
+        Log.d(TAG, "Data restored: " + savedData);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedData = savedInstanceState.getString(KEY_DATA);
+        Log.d(TAG, "Data restored: " + savedData);
+    }
+
 
     @Override
     protected void onStart() {
