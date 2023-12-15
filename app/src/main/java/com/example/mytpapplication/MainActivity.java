@@ -33,10 +33,18 @@ public class MainActivity extends AppCompatActivity {
         ed2 = findViewById(R.id.edittext2);
         btn = findViewById(R.id.button);
         tv = findViewById(R.id.textview1);
+
+        String number1String = ed1.getText().toString();
+        String number2String = ed2.getText().toString();
+
+        double number1 = Double.parseDouble(number1String);
+        double number2 = Double.parseDouble(number2String);
+        double result = number1 * number2;
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tv.setText("");
+                tv.setText("Resulta est : " + result);
             }
         });
     }
